@@ -1,15 +1,14 @@
 'use client'
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import Link from 'next/link';
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useMutation } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
 
-export default function Home() {
+const page = () => {
   const route = useRouter()
-  const createRoom = useMutation(api?.mutations?.createRoom?.createRoom);
-
+  const joinRoom = useMutation(api?.mutations?.joinRoom.joinRoom);
   const [roomName, setRoomName] = useState('');
   const [playerName, setPlayerName] = useState('');
 
@@ -19,9 +18,9 @@ export default function Home() {
     if (!playerName || !roomName) return alert("Name and room required.");
 
     try {
-      const result = await createRoom({ username: playerName, roomName });
+      const result = await joinRoom({ username: playerName, roomName });
       console.log("Room created:", result);
-      route.push(`/user/${playerName}/room/${roomName}`); // or whatever route you want
+      route.push(`/user/${playerName}/room/${roomName}`);
     } catch (err: any) {
       alert(err.message);
     }
@@ -67,16 +66,18 @@ export default function Home() {
               type="submit"
               className="w-full bg-foreground border-[2px] border-gray-300  text-background hover:text-foreground py-2 rounded-md hover:bg-background transition duration-200"
             >
-              Create Room
+              Join Room
             </button>
           </form>
           <div className='w-full  mt-2 flex justify-center'>
-            <Link href={`/joinSession`}>
-              <p onClick={() => route.push(`/joinSession`)} className=' cursor-pointer hover:text-gray-400'>join Room</p>
+            <Link href={`/`}>
+              <p onClick={() => route.push(`/`)} className=' cursor-pointer hover:text-gray-400'>Create Room</p>
             </Link>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default page;
