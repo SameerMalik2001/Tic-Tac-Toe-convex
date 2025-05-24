@@ -17,6 +17,7 @@ import type * as mutations_createRoom from "../mutations/createRoom.js";
 import type * as mutations_joinRoom from "../mutations/joinRoom.js";
 import type * as mutations_updateRoom from "../mutations/updateRoom.js";
 import type * as queries_getRoom from "../queries/getRoom.js";
+import type * as scheduled_cleanupOldRooms from "../scheduled/cleanupOldRooms.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -31,6 +32,7 @@ declare const fullApi: ApiFromModules<{
   "mutations/joinRoom": typeof mutations_joinRoom;
   "mutations/updateRoom": typeof mutations_updateRoom;
   "queries/getRoom": typeof queries_getRoom;
+  "scheduled/cleanupOldRooms": typeof scheduled_cleanupOldRooms;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "scheduled/cleanupOldRooms",
+      "schedule": "rate(10 minutes)"
+    }
+  ]
+}
