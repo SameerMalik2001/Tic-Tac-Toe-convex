@@ -39,12 +39,14 @@ function checkWinner(board: string[]): "X" | "O" | "draw" | undefined {
 
 const page = () => {
   const data = useParams()
-  const roomName = data?.roomName as string;
-  const playerName = data?.playerName as string;
+  const roomName = String(data?.roomName)?.replaceAll('%20' , ' ');
+  const playerName = String(data?.playerName)?.replaceAll('%20' , ' ');
   const room = useQuery(api.queries.getRoom.getRoom, { roomName: String(roomName) })
   const updateRoom = useMutation(api.mutations.updateRoom.updateRoom)
   const route = useRouter()
   const [draw, setDraw] = useState(false)
+
+  console.log({ playerName, roomName });
 
   useEffect(() => {
     if (room) {
